@@ -1,207 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Calculadora de Notas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="tela-inicio" class="overlay-inicio">
-      <div class="cartao-inicio">
-        <h2>Bem-vindo(a)</h2>
-        <p class="apoio">
-          Identifique seu perfil e informe a matéria para continuar.
-        </p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Notas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Portal de notas</h1>
+    <p>Seja bem-vindo ao Portal de Notas!</p>
+  </header>
 
-        <form id="form-inicio" onsubmit="return false;">
-          <div class="campo">
-            <label>Você é:</label>
-            <div class="opcoes-perfil">
-              <label class="opcao-card">
-                <input type="radio" name="perfil" value="Professor" checked />
-                <span> Professor(a)</span>
-              </label>
-              <label class="opcao-card">
-                <input type="radio" name="perfil" value="Aluno" />
-                <span> Aluno(a)</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="campo">
-            <label for="nome-usuario">Seu Nome</label>
-            <input
-              type="text"
-              id="nome-usuario"
-              placeholder="Ex.: Prof. Carlos ou Ana Silva"
-              required
-            />
-          </div>
-
-          <div class="campo">
-            <label for="materia">Matéria / Disciplina</label>
-            <input
-              type="text"
-              id="materia"
-              placeholder="Ex.: Matemática, História, Física..."
-              required
-            />
-          </div>
-
-          <button type="submit" id="btn-entrar" class="btn-principal">
-            Entrar no Sistema
-          </button>
-        </form>
+  <main>
+    <section class="cartoes">
+      <div class="cartao">
+        <span>Total de alunos</span>
+        <strong id="totalAlunos">0</strong>
       </div>
-    </div>
+      <div class="cartao">
+        <span>Quantidade de notas</span>
+        <strong id="totalNotas">0</strong>
+      </div>
+      <div class="cartao">
+        <span>Notas acima de 7</span>
+        <strong id="totalAcima">0</strong>
+      </div>
+      <div class="cartao">
+        <span>Média da turma</span>
+        <strong id="mediaTurma">-</strong>
+      </div>
+    </section>
 
-    <div id="app-principal" class="oculto-app">
-      <header class="topo">
-        <div class="conteudo">
-          <div class="topo-cabecalho">
-            <div>
-              <h1>Calculadora de Notas</h1>
-              <p id="subtitulo-topo">
-                Cadastre alunos e suas notas, calcule a média de cada um e
-                descubra quais notas ficaram acima de 7.
-              </p>
-            </div>
-
-            <div class="info-perfil">
-              <span id="badge-perfil" class="badge"></span>
-              <span id="badge-materia" class="badge materia"></span>
-              <button type="button" id="btn-trocar-perfil" class="btn-trocar">
-                Trocar perfil
-              </button>
-            </div>
-          </div>
+    <section class="painel">
+      <h2>Cadastrar aluno</h2>
+      <div class="formulario">
+        <div class="campo">
+          <label for="nomeAluno">Nome do aluno</label>
+          <input type="text" id="nomeAluno" placeholder="Ex.: Ana Souza">
         </div>
-      </header>
+      </div>
+      <p id="msgAluno" class="mensagem"></p>
+      <div class="botoes">
+        <button type="button" id="btnCadastrar" class="principal">Cadastrar aluno</button>
+      </div>
+    </section>
 
-      <main class="conteudo">
-        <section class="resumo" aria-label="Resumo geral">
-          <article class="cartao-resumo">
-            <div><span>Alunos</span><strong id="total-alunos">0</strong></div>
-          </article>
-          <article class="cartao-resumo">
-            <div>
-              <span>Notas lançadas</span><strong id="total-notas">0</strong>
-            </div>
-          </article>
-          <article class="cartao-resumo">
-            <div>
-              <span>Notas acima de 7</span><strong id="total-acima">0</strong>
-            </div>
-          </article>
-          <article class="cartao-resumo">
-            <div>
-              <span>Média da turma</span><strong id="media-turma">–</strong>
-            </div>
-          </article>
-        </section>
-
-        <div class="duas-colunas">
-          <section
-            id="secao-adicionar"
-            class="cartao"
-            aria-labelledby="titulo-form"
-          >
-            <h2 id="titulo-form">Adicionar nota</h2>
-            <p class="apoio">
-              Para dar outra nota ao mesmo aluno, repita o nome dele.
-            </p>
-            <div class="form">
-              <div class="campo">
-                <label for="nome-aluno">Nome do aluno</label>
-                <input
-                  type="text"
-                  id="nome-aluno"
-                  list="sugestoes"
-                  placeholder="Ex.: Maria Souza"
-                  autocomplete="off"
-                />
-                <datalist id="sugestoes"></datalist>
-              </div>
-              <div class="campo">
-                <label for="nota">Nota (0 a 10)</label>
-                <input
-                  type="number"
-                  id="nota"
-                  min="0"
-                  max="10"
-                  step="0.1"
-                  placeholder="8,5"
-                />
-              </div>
-              <button type="button" id="btn-adicionar">Adicionar nota</button>
-            </div>
-            <p id="mensagem" class="mensagem" role="status" aria-live="polite">
-              Digite o nome do aluno e uma nota entre 0 e 10.
-            </p>
-          </section>
-
-          <section class="cartao" aria-labelledby="titulo-grafico">
-            <h2 id="titulo-grafico">Média por aluno</h2>
-            <p class="apoio">A linha tracejada marca a nota 7.</p>
-            <div id="grafico" class="grafico"></div>
-          </section>
+    <section class="painel">
+      <h2>Adicionar nota</h2>
+      <div class="formulario">
+        <div class="campo">
+          <label for="alunoSelect">Aluno</label>
+          <select id="alunoSelect">
+            <option value="">Selecione um aluno</option>
+          </select>
         </div>
-
-        <section class="cartao" aria-labelledby="titulo-alunos">
-          <div class="titulo-linha">
-            <div>
-              <h2 id="titulo-alunos">Alunos e resultados</h2>
-              <p id="subtitulo-tabela" class="apoio">
-                Consulte abaixo as notas e médias da turma.
-              </p>
-            </div>
-
-            <div id="acoes-professor" class="acoes">
-              <button type="button" id="btn-calcular">Calcular média</button>
-              <button type="button" id="btn-limpar" class="secundario">
-                Limpar tudo
-              </button>
-            </div>
-          </div>
-
-          <div class="tabela-rolagem">
-            <table>
-              <thead>
-                <tr id="linha-cabecalho">
-                  <th scope="col">Aluno</th>
-                  <th scope="col">Notas</th>
-                  <th scope="col">Média</th>
-                  <th scope="col">Acima de 7</th>
-                  <th id="th-acoes" scope="col">
-                    <span class="oculto">Ações</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="tabela-alunos"></tbody>
-            </table>
-          </div>
-          <p class="legenda">
-            <span class="nota alta">Verde</span> acima de 7
-            <span class="nota media">Âmbar</span> de 5 a 7
-            <span class="nota baixa">Vermelho</span> abaixo de 5
-          </p>
-        </section>
-      </main>
-
-      <footer class="rodape">
-        <div class="conteudo">
-          Calculadora de Notas – projeto feito com ajuda do CHATGPT e CLAUDE
+        <div class="campo">
+          <label for="nota">Nota (0 a 10)</label>
+          <input type="number" id="nota" min="0" max="10" step="0.1" placeholder="Ex.: 8.5">
         </div>
-      </footer>
-    </div>
+      </div>
+      <p id="mensagem" class="mensagem"></p>
+      <div class="botoes">
+        <button type="button" id="btnAdicionar" class="principal">Adicionar nota</button>
+        <button type="button" id="btnCalcular">Calcular média</button>
+        <button type="button" id="btnLimpar">Limpar dados</button>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
-  </body>
+    <section class="painel">
+      <h2>Resultados</h2>
+      <div class="tabela-area">
+        <table>
+          <thead>
+            <tr>
+              <th>Aluno</th>
+              <th>Notas</th>
+              <th>Média</th>
+              <th>Notas acima de 7</th>
+            </tr>
+          </thead>
+          <tbody id="tabela"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="painel">
+      <h2>Gráfico de médias</h2>
+      <div id="grafico" class="grafico"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Calculadora de Notas - Projeto escolar</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
